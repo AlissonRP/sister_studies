@@ -37,7 +37,7 @@ app = Flask(
     static_folder=os.path.join(BASE_DIR, "static"),
     template_folder=os.path.join(BASE_DIR, "templates"),
 )
-app.secret_key = "kitty-secret-key-2025"
+app.secret_key = os.environ.get("SECRET_KEY", "kitty-local-2025")
 
 
 @dataclass
@@ -64,7 +64,7 @@ class Exercise:
 
         elif operation_name == "multiplicação":
             first_number = random.randint(2, 999)
-            second_number = random.randint(2, 10)
+            second_number = random.randint(2, 9)
 
         else:  # divisão
             second_number = random.randint(2, 10)

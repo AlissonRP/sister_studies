@@ -1,21 +1,48 @@
 # 🎀 Estudando Matemática
 
-App web local para praticar matemática básica do 6º ano, desenvolvido com auxílio **Claude Sonnet 4.6**.
+App web para praticar matemática básica do 6º ano, com visual temático Hello Kitty.
+Desenvolvido com auxílio do **Claude Sonnet 4.6**.
 
-## O que é
+---
 
-Aplicação simples com visual temático Hello Kitty para uma aluna do 6º ano praticar as quatro operações básicas. Possui modo livre de prática e modo avaliação estilo prova.
+## 📸 Telas
 
-## Funcionalidades
+### Modo Prática
+![Modo Prática](imgs/aba.png)
 
-- **Modo prática** — questões infinitas com feedback imediato, GIFs de reação e placar de aproveitamento
-- **Modo avaliação** — 5 questões seguidas, sem distração, com resultado final mostrando nota, tempo total e tempo por questão
-- Operações geradas dentro do nível adequado ao 6º ano:
-  - Soma e subtração com números grandes (sem resultado negativo)
-  - Multiplicação e divisão dentro da tabuada do 1 ao 10
-  - Divisão com dividendos grandes, sempre resultado exato
+### Modo Avaliação
+![Modo Avaliação](imgs/prova.png)
 
-## Como usar
+---
+
+## ✨ Funcionalidades
+
+### Modo Prática
+- Questões infinitas com feedback imediato após cada resposta
+- GIFs animados de reação (acerto e erro)
+- Placar em tempo real com acertos, tentativas e aproveitamento
+
+### Modo Avaliação
+- Contagem regressiva de 3s antes de começar
+- 5 questões seguidas sem distrações, estilo prova
+- Tela de loading com barra de aproveitamento animada ao final
+- Resultado completo com:
+  - Nota (0–10)
+  - Tempo total e tempo médio por questão
+  - Desempenho separado por operação com feedback personalizado
+  - Detalhamento questão a questão
+
+### Operações
+| Operação | Regra |
+|---|---|
+| Soma | Parcelas de 3–4 dígitos |
+| Subtração | Resultado sempre positivo, números grandes |
+| Multiplicação | Esquerda até 3 dígitos × direita 1 dígito |
+| Divisão | Divisor até 10, dividendo grande, sempre exata |
+
+---
+
+## 🚀 Como usar
 
 **Pré-requisitos:** Python 3.10+ e pip
 
@@ -27,17 +54,21 @@ pip install flask
 python app.py
 ```
 
-Abra o navegador em **http://localhost:5000**
+Acesse **http://localhost:5000** no navegador.
 
-## Estrutura
+---
+
+## 📁 Estrutura
 
 ```
+MATH_STUDIES/
 ├── app.py
 ├── static/
 │   ├── gifs/
 │   │   ├── acerto.gif
 │   │   └── errado.gif
 │   └── images/
+│       ├── favicon.png
 │       ├── hello_kitty.png
 │       ├── kuromi.png
 │       ├── my_melody.png

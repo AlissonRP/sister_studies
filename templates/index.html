@@ -8,10 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎀</text></svg>"
-    />
+    <link rel="icon" type="image/png" href="/static/images/favicon.png" />
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -34,10 +31,7 @@
         flex-wrap: wrap;
       }
 
-      .character {
-        animation: float 3s ease-in-out infinite;
-      }
-
+      .character { animation: float 3s ease-in-out infinite; }
       .character:nth-child(2) { animation-delay: 0.4s; }
       .character:nth-child(3) { animation-delay: 0.8s; }
       .character:nth-child(4) { animation-delay: 1.2s; }
@@ -89,14 +83,7 @@
       }
 
       header { text-align: center; margin-bottom: 24px; }
-
-      h1 {
-        font-size: 1.55rem;
-        font-weight: 900;
-        color: #d63384;
-        letter-spacing: -0.5px;
-      }
-
+      h1 { font-size: 1.55rem; font-weight: 900; color: #d63384; letter-spacing: -0.5px; }
       h1 span { color: #ff69b4; }
 
       .score-bar {
@@ -111,19 +98,8 @@
         border: 2px solid #ffb6d9;
       }
 
-      .score-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-      }
-
-      .score-number {
-        font-size: 1.6rem;
-        font-weight: 900;
-        color: #d63384;
-        line-height: 1;
-      }
+      .score-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+      .score-number { font-size: 1.6rem; font-weight: 900; color: #d63384; line-height: 1; }
 
       .score-label {
         font-size: 0.7rem;
@@ -133,12 +109,7 @@
         letter-spacing: 0.5px;
       }
 
-      .score-divider {
-        width: 2px;
-        height: 36px;
-        background: #ffb6d9;
-        border-radius: 2px;
-      }
+      .score-divider { width: 2px; height: 36px; background: #ffb6d9; border-radius: 2px; }
 
       .exercise-box {
         background: linear-gradient(135deg, #fff0f8, #ffe8f4);
@@ -170,22 +141,14 @@
         line-height: 1.2;
       }
 
-      .question-mark {
-        color: #ff69b4;
-        animation: pulse 1.5s ease-in-out infinite;
-      }
+      .question-mark { color: #ff69b4; animation: pulse 1.5s ease-in-out infinite; }
 
       @keyframes pulse {
         0%, 100% { opacity: 1; }
         50%       { opacity: 0.35; }
       }
 
-      .answer-section {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-bottom: 16px;
-      }
+      .answer-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
 
       input[type="number"] {
         width: 100%;
@@ -236,12 +199,7 @@
         transform: translateY(-2px);
       }
 
-      .btn-confirm:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
+      .btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
       .btn-next {
         background: linear-gradient(135deg, #c084fc, #a855f7);
@@ -250,11 +208,7 @@
         display: none;
       }
 
-      .btn-next:hover {
-        box-shadow: 0 6px 20px rgba(168,85,247,0.5);
-        transform: translateY(-2px);
-      }
-
+      .btn-next:hover { box-shadow: 0 6px 20px rgba(168,85,247,0.5); transform: translateY(-2px); }
       .btn-next.visible { display: block; }
 
       .feedback-box {
@@ -277,27 +231,10 @@
       .feedback-box.correct { background: #f0fdf4; color: #16a34a; border: 2px solid #bbf7d0; }
       .feedback-box.wrong   { background: #fff1f5; color: #be185d; border: 2px solid #fecdd3; }
 
-      .feedback-gif {
-        width: 110px;
-        height: 110px;
-        object-fit: contain;
-        border-radius: 12px;
-        margin-bottom: 8px;
-        display: none;
-      }
-
-      .feedback-gif.visible {
-        display: inline-block;
-        animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
-      }
-
+      .feedback-gif { width: 110px; height: 110px; object-fit: contain; border-radius: 12px; margin-bottom: 8px; display: none; }
+      .feedback-gif.visible { display: inline-block; animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1); }
       .feedback-message-text { font-size: 1.05rem; }
-
-      .feedback-correct-answer {
-        font-size: 0.85rem;
-        margin-top: 4px;
-        opacity: 0.8;
-      }
+      .feedback-correct-answer { font-size: 0.85rem; margin-top: 4px; opacity: 0.8; }
 
       .btn-reset {
         background: none;
@@ -381,13 +318,8 @@
         filter: drop-shadow(0 4px 16px rgba(214,51,132,0.35));
       }
 
-      .countdown-label {
-        font-size: 1.3rem;
-        font-weight: 900;
-        color: #e91e8c;
-      }
+      .countdown-label { font-size: 1.3rem; font-weight: 900; color: #e91e8c; }
 
-      /* ══ AVALIAÇÃO ══ */
       .exam-progress-bar {
         width: 100%;
         height: 10px;
@@ -412,7 +344,49 @@
         margin-bottom: 18px;
       }
 
-      /* ── resultado ── */
+      .loading-screen {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px 0;
+        animation: fade-in 0.3s ease;
+      }
+
+      .loading-screen.visible { display: flex; }
+      .loading-label { font-size: 1rem; font-weight: 900; color: #d63384; }
+
+      .loading-pct {
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #d63384;
+        line-height: 1;
+        filter: drop-shadow(0 2px 8px rgba(214,51,132,0.2));
+      }
+
+      .loading-bar-track {
+        width: 100%;
+        height: 28px;
+        background: #ffe0f0;
+        border-radius: 99px;
+        overflow: hidden;
+        border: 2px solid #ffb6d9;
+      }
+
+      .loading-bar-fill {
+        height: 100%;
+        border-radius: 99px;
+        width: 0%;
+        transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .loading-bar-fill.bar-a { background: linear-gradient(90deg, #4ade80, #16a34a); }
+      .loading-bar-fill.bar-b { background: linear-gradient(90deg, #fde047, #ca8a04); }
+      .loading-bar-fill.bar-c { background: linear-gradient(90deg, #fb7185, #e11d48); }
+
+      .loading-sublabel { font-size: 0.85rem; font-weight: 700; color: #ff91c1; }
+
       .result-screen {
         display: none;
         flex-direction: column;
@@ -424,28 +398,14 @@
 
       .result-screen.visible { display: flex; }
 
-      .result-grade {
-        font-size: 5rem;
-        font-weight: 900;
-        line-height: 1;
-      }
-
+      .result-grade { font-size: 5rem; font-weight: 900; line-height: 1; }
       .result-grade.grade-a { color: #16a34a; }
       .result-grade.grade-b { color: #ca8a04; }
       .result-grade.grade-c { color: #dc2626; }
 
-      .result-title {
-        font-size: 1.4rem;
-        font-weight: 900;
-        color: #d63384;
-      }
+      .result-title { font-size: 1.4rem; font-weight: 900; color: #d63384; }
 
-      .result-stats {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
+      .result-stats { width: 100%; display: flex; flex-direction: column; gap: 10px; }
 
       .result-stat-row {
         display: flex;
@@ -460,21 +420,11 @@
         color: #c2185b;
       }
 
-      .result-stat-row span:last-child {
-        font-size: 1.05rem;
-        font-weight: 900;
-        color: #d63384;
-      }
+      .result-stat-row span:last-child { font-size: 1.05rem; font-weight: 900; color: #d63384; }
 
-      /* ── feedback por operação ── */
-      .result-operation-feedback {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
+      .result-operation-feedback { width: 100%; display: flex; flex-direction: column; gap: 8px; }
 
-      .result-operation-feedback-title {
+      .result-section-title {
         font-size: 0.82rem;
         font-weight: 900;
         color: #ff91c1;
@@ -495,80 +445,22 @@
         text-align: left;
       }
 
-      .operation-feedback-row.op-great {
-        background: #f0fdf4;
-        color: #16a34a;
-        border: 2px solid #bbf7d0;
-      }
-
-      .operation-feedback-row.op-ok {
-        background: #fefce8;
-        color: #a16207;
-        border: 2px solid #fde68a;
-      }
-
-      .operation-feedback-row.op-improve {
-        background: #fff1f5;
-        color: #be185d;
-        border: 2px solid #fecdd3;
-      }
-
-      .operation-feedback-row.op-none {
-        background: #f8f8f8;
-        color: #aaa;
-        border: 2px solid #eee;
-      }
+      .operation-feedback-row.op-great   { background: #f0fdf4; color: #16a34a; border: 2px solid #bbf7d0; }
+      .operation-feedback-row.op-ok      { background: #fefce8; color: #a16207; border: 2px solid #fde68a; }
+      .operation-feedback-row.op-improve { background: #fff1f5; color: #be185d; border: 2px solid #fecdd3; }
 
       .op-feedback-icon { font-size: 1.4rem; flex-shrink: 0; }
-
-      .op-feedback-info { display: flex; flex-direction: column; gap: 2px; }
-
-      .op-feedback-name {
-        font-size: 0.95rem;
-        font-weight: 900;
-        text-transform: capitalize;
-      }
-
+      .op-feedback-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+      .op-feedback-name { font-size: 0.95rem; font-weight: 900; text-transform: capitalize; }
       .op-feedback-detail { font-size: 0.78rem; opacity: 0.85; font-weight: 700; }
 
-      /* barra de acerto por operação */
-      .op-feedback-bar-track {
-        flex: 1;
-        height: 8px;
-        background: rgba(0,0,0,0.08);
-        border-radius: 99px;
-        overflow: hidden;
-        min-width: 50px;
-      }
-
-      .op-feedback-bar-fill {
-        height: 100%;
-        border-radius: 99px;
-        transition: width 0.6s ease;
-      }
-
-      .op-great .op-feedback-bar-fill  { background: #22c55e; }
-      .op-ok    .op-feedback-bar-fill  { background: #eab308; }
+      .op-feedback-bar-track { flex-shrink: 0; width: 60px; height: 8px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
+      .op-feedback-bar-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
+      .op-great   .op-feedback-bar-fill { background: #22c55e; }
+      .op-ok      .op-feedback-bar-fill { background: #eab308; }
       .op-improve .op-feedback-bar-fill { background: #f43f5e; }
-      .op-none  .op-feedback-bar-fill  { background: #ccc; }
 
-      /* ── questões ── */
-      .result-questions {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .result-questions-title {
-        font-size: 0.82rem;
-        font-weight: 900;
-        color: #ff91c1;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        text-align: left;
-        margin-bottom: 2px;
-      }
+      .result-questions { width: 100%; display: flex; flex-direction: column; gap: 8px; }
 
       .result-question-row {
         display: flex;
@@ -582,7 +474,6 @@
 
       .result-question-row.correct { background: #f0fdf4; color: #16a34a; border: 1.5px solid #bbf7d0; }
       .result-question-row.wrong   { background: #fff1f5; color: #be185d; border: 1.5px solid #fecdd3; }
-
       .result-question-expr { font-size: 1rem; font-weight: 900; }
 
       .btn-exam-mode {
@@ -599,16 +490,8 @@
         transition: transform 0.15s, box-shadow 0.15s;
       }
 
-      .btn-exam-mode:hover:not(:disabled) {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 28px rgba(124,58,237,0.5);
-      }
-
-      .btn-exam-mode:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-      }
+      .btn-exam-mode:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(124,58,237,0.5); }
+      .btn-exam-mode:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
       .btn-back-practice {
         background: linear-gradient(135deg, #ff69b4, #e91e8c);
@@ -625,10 +508,7 @@
         transition: transform 0.15s, box-shadow 0.15s;
       }
 
-      .btn-back-practice:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255,105,180,0.55);
-      }
+      .btn-back-practice:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,105,180,0.55); }
     </style>
   </head>
   <body>
@@ -671,7 +551,7 @@
           <div class="score-divider"></div>
           <div class="score-item">
             <span class="score-number" id="score-pct">—</span>
-            <span class="score-label">🌸 Aproveit.</span>
+            <span class="score-label">🌸 Aproveitamento</span>
           </div>
         </div>
 
@@ -683,7 +563,7 @@
         </div>
 
         <div class="answer-section">
-          <input type="number" id="answer-input" placeholder="Sua resposta aqui 💕" autocomplete="off" />
+          <input type="number" id="answer-input" placeholder="Sua resposta aqui ��" autocomplete="off" />
           <button class="btn btn-confirm" id="btn-confirm" onclick="submitAnswer()">Confirmar 💖</button>
         </div>
 
@@ -719,20 +599,26 @@
           </div>
         </div>
 
-        <!-- resultado -->
+        <div class="loading-screen" id="loading-screen">
+          <div class="loading-label">Calculando seu resultado... 🎀</div>
+          <div class="loading-pct" id="loading-pct">0%</div>
+          <div class="loading-bar-track">
+            <div class="loading-bar-fill" id="loading-bar-fill"></div>
+          </div>
+          <div class="loading-sublabel" id="loading-sublabel"></div>
+        </div>
+
         <div class="result-screen" id="result-screen">
           <div class="result-grade" id="result-grade">—</div>
           <div class="result-title"  id="result-title">—</div>
           <div class="result-stats"  id="result-stats"></div>
 
-          <!-- feedback por operação -->
           <div class="result-operation-feedback" id="result-operation-feedback">
-            <div class="result-operation-feedback-title">📊 Desempenho por operação</div>
+            <div class="result-section-title">📊 Desempenho por operação</div>
           </div>
 
-          <!-- detalhe das questões -->
           <div class="result-questions" id="result-questions">
-            <div class="result-questions-title">📝 Questão a questão</div>
+            <div class="result-section-title">📝 Questão a questão</div>
           </div>
 
           <button class="btn-back-practice" onclick="exitExamMode()">🌸 Voltar para prática</button>
@@ -750,6 +636,7 @@
       const GIF_WRONG        = "/static/gifs/errado.gif";
       const OVERLAY_DURATION = 2200;
       const EXAM_TOTAL       = 5;
+      const LOADING_DURATION = 1800;
 
       const OPERATION_META = {
         "soma":          { icon: "➕", label: "Soma" },
@@ -763,7 +650,6 @@
       let examStartTime     = null;
       let questionStartTime = null;
 
-      /* ── bloquear letras ── */
       function blockNonNumeric(event) {
         const allowed = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter"];
         if (allowed.includes(event.key) || (event.key >= "0" && event.key <= "9")) return;
@@ -774,13 +660,12 @@
         .addEventListener("keydown", blockNonNumeric);
       document.getElementById("exam-answer-input")
         .addEventListener("keydown", blockNonNumeric);
-
       document.getElementById("answer-input")
         .addEventListener("keydown", (e) => { if (e.key === "Enter") submitAnswer(); });
       document.getElementById("exam-answer-input")
         .addEventListener("keydown", (e) => { if (e.key === "Enter") submitExamAnswer(); });
 
-      /* ���═ PRÁTICA ══ */
+      /* ══ PRÁTICA ══ */
       async function loadExercise() {
         const response = await fetch("/api/exercise");
         const data     = await response.json();
@@ -812,13 +697,12 @@
         if (raw === "") return;
 
         const response = await fetch("/api/answer", {
-          method:  "POST",
+          method: "POST",
           headers: { "Content-Type": "application/json" },
-          body:    JSON.stringify({ answer: raw }),
+          body: JSON.stringify({ answer: raw }),
         });
 
         const data = await response.json();
-
         input.disabled = true;
         document.getElementById("btn-confirm").disabled = true;
 
@@ -863,7 +747,6 @@
           score.total === 0 ? "—" : Math.round((score.correct / score.total) * 100) + "%";
       }
 
-      /* ── overlay GIF ── */
       function showOverlayGif(isCorrect) {
         const overlay    = document.getElementById("gif-overlay");
         const overlayImg = document.getElementById("gif-overlay-img");
@@ -912,6 +795,7 @@
 
         document.getElementById("practice-screen").style.display    = "none";
         document.getElementById("exam-screen").style.display        = "block";
+        document.getElementById("loading-screen").classList.remove("visible");
         document.getElementById("result-screen").classList.remove("visible");
         document.getElementById("exam-question-area").style.display = "block";
 
@@ -950,14 +834,13 @@
         if (raw === "") return;
 
         const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
-
         input.disabled = true;
         document.getElementById("exam-btn-confirm").disabled = true;
 
         const response = await fetch("/api/exam/answer", {
-          method:  "POST",
+          method: "POST",
           headers: { "Content-Type": "application/json" },
-          body:    JSON.stringify({ answer: raw, time_spent: timeSpent }),
+          body: JSON.stringify({ answer: raw, time_spent: timeSpent }),
         });
 
         const data = await response.json();
@@ -972,13 +855,69 @@
         });
 
         if (examAnswers.length >= EXAM_TOTAL) {
-          finishExam();
+          showLoadingThenResult();
         } else {
           await loadExamQuestion();
         }
       }
 
-      /* ── agrupa respostas por operação e gera feedback ── */
+      function showLoadingThenResult() {
+        const totalTime    = Math.floor((Date.now() - examStartTime) / 1000);
+        const totalCorrect = examAnswers.filter(a => a.is_correct).length;
+        const pct          = Math.round((totalCorrect / EXAM_TOTAL) * 100);
+        const barClass     = pct >= 70 ? "bar-a" : pct >= 50 ? "bar-b" : "bar-c";
+
+        const subLabels = {
+          "bar-a": "Excelente! 🌟",
+          "bar-b": "Bom trabalho! 🌸",
+          "bar-c": "Continue praticando! 💪",
+        };
+
+        document.getElementById("exam-question-area").style.display = "none";
+        document.getElementById("exam-progress-fill").style.width   = "100%";
+
+        const loadingScreen = document.getElementById("loading-screen");
+        const barFill       = document.getElementById("loading-bar-fill");
+        const pctLabel      = document.getElementById("loading-pct");
+        const subLabel      = document.getElementById("loading-sublabel");
+
+        barFill.className    = `loading-bar-fill ${barClass}`;
+        barFill.style.width  = "0%";
+        pctLabel.textContent = "0%";
+        subLabel.textContent = "";
+        loadingScreen.classList.add("visible");
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            barFill.style.width = `${pct}%`;
+
+            const start = performance.now();
+
+            function animateCounter(now) {
+              const elapsed  = now - start;
+              const progress = Math.min(elapsed / LOADING_DURATION, 1);
+              const eased    = 1 - Math.pow(1 - progress, 3);
+              pctLabel.textContent = `${Math.round(eased * pct)}%`;
+
+              if (progress >= 0.7 && subLabel.textContent === "") {
+                subLabel.textContent = subLabels[barClass];
+              }
+
+              if (progress < 1) {
+                requestAnimationFrame(animateCounter);
+              } else {
+                setTimeout(() => {
+                  loadingScreen.classList.remove("visible");
+                  buildAndShowResult(totalCorrect, totalTime);
+                }, 400);
+              }
+            }
+
+            requestAnimationFrame(animateCounter);
+          });
+        });
+      }
+
       function buildOperationFeedback(answers) {
         const grouped = {};
 
@@ -994,7 +933,6 @@
           const meta = OPERATION_META[op] || { icon: "🔢", label: op };
 
           let cssClass, message;
-
           if (rate === 1) {
             cssClass = "op-great";
             message  = "Mandou muito bem! Continue assim! 🌟";
@@ -1006,18 +944,13 @@
             message  = "Precisa praticar mais essa operação 💪";
           }
 
-          return { op, meta, stats, rate, cssClass, message };
+          return { meta, stats, rate, cssClass, message };
         });
       }
 
-      function finishExam() {
-        const totalTime    = Math.floor((Date.now() - examStartTime) / 1000);
-        const totalCorrect = examAnswers.filter(a => a.is_correct).length;
-        const grade        = Math.round((totalCorrect / EXAM_TOTAL) * 10);
-        const avgTime      = Math.round(totalTime / EXAM_TOTAL);
-
-        document.getElementById("exam-question-area").style.display = "none";
-        document.getElementById("exam-progress-fill").style.width   = "100%";
+      function buildAndShowResult(totalCorrect, totalTime) {
+        const grade   = Math.round((totalCorrect / EXAM_TOTAL) * 10);
+        const avgTime = Math.round(totalTime / EXAM_TOTAL);
 
         const gradeEl       = document.getElementById("result-grade");
         gradeEl.textContent = `${grade}/10`;
@@ -1041,9 +974,6 @@
             <span>✅ Acertos</span><span>${totalCorrect} de ${EXAM_TOTAL}</span>
           </div>
           <div class="result-stat-row">
-            <span>🏆 Nota</span><span>${grade}/10</span>
-          </div>
-          <div class="result-stat-row">
             <span>⏱ Tempo total</span><span>${timeLabel}</span>
           </div>
           <div class="result-stat-row">
@@ -1051,25 +981,23 @@
           </div>
         `;
 
-        /* feedback por operação */
-        const opFeedbacks = buildOperationFeedback(examAnswers);
-        const opRows = opFeedbacks.map(({ op, meta, stats, rate, cssClass, message }) => `
-          <div class="operation-feedback-row ${cssClass}">
-            <span class="op-feedback-icon">${meta.icon}</span>
-            <div class="op-feedback-info">
-              <span class="op-feedback-name">${meta.label}</span>
-              <span class="op-feedback-detail">${stats.correct}/${stats.total} acerto(s) · ${message}</span>
-            </div>
-            <div class="op-feedback-bar-track">
-              <div class="op-feedback-bar-fill" style="width:${Math.round(rate * 100)}%"></div>
-            </div>
-          </div>
-        `).join("");
+        const opRows = buildOperationFeedback(examAnswers).map(
+          ({ meta, stats, rate, cssClass, message }) => `
+            <div class="operation-feedback-row ${cssClass}">
+              <span class="op-feedback-icon">${meta.icon}</span>
+              <div class="op-feedback-info">
+                <span class="op-feedback-name">${meta.label}</span>
+                <span class="op-feedback-detail">${stats.correct}/${stats.total} acerto(s) · ${message}</span>
+              </div>
+              <div class="op-feedback-bar-track">
+                <div class="op-feedback-bar-fill" style="width:${Math.round(rate * 100)}%"></div>
+              </div>
+            </div>`
+        ).join("");
 
         document.getElementById("result-operation-feedback").innerHTML =
-          `<div class="result-operation-feedback-title">📊 Desempenho por operação</div>${opRows}`;
+          `<div class="result-section-title">📊 Desempenho por operação</div>${opRows}`;
 
-        /* questão a questão */
         const questionRows = examAnswers.map((answer, index) => {
           const icon  = answer.is_correct ? "✅" : "❌";
           const klass = answer.is_correct ? "correct" : "wrong";
@@ -1087,7 +1015,7 @@
         }).join("");
 
         document.getElementById("result-questions").innerHTML =
-          `<div class="result-questions-title">📝 Questão a questão</div>${questionRows}`;
+          `<div class="result-section-title">📝 Questão a questão</div>${questionRows}`;
 
         document.getElementById("result-screen").classList.add("visible");
       }
