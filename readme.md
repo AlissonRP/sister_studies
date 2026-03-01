@@ -1,7 +1,7 @@
 # 🎀 Estudando Matemática
 
 App web para praticar matemática básica do 6º ano, com visual temático Hello Kitty.
-Desenvolvido com auxílio do **GitHub Copilot (Claude Sonnet 4.6)**.
+Desenvolvido com auxílio do *(Claude Sonnet 4.6)*.
 
 ---
 
