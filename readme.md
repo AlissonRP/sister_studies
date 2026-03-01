@@ -1,17 +1,22 @@
 # 🎀 Estudando Matemática
 
 App web para praticar matemática básica do 6º ano, com visual temático Hello Kitty.
-Desenvolvido com auxílio do **Claude Sonnet 4.6**.
+Desenvolvido com auxílio do **GitHub Copilot (Claude Sonnet 4.6)**.
 
 ---
 
 ## 📸 Telas
 
-### Modo Prática
-![Modo Prática](imgs/aba.png)
-
-### Modo Avaliação
-![Modo Avaliação](imgs/prova.png)
+<table>
+  <tr>
+    <td align="center"><b>Modo Prática</b></td>
+    <td align="center"><b>Modo Avaliação</b></td>
+  </tr>
+  <tr>
+    <td><img src="imgs/aba.png" width="300"/></td>
+    <td><img src="imgs/prova.png" width="300"/></td>
+  </tr>
+</table>
 
 ---
 
@@ -47,10 +52,7 @@ Desenvolvido com auxílio do **Claude Sonnet 4.6**.
 **Pré-requisitos:** Python 3.10+ e pip
 
 ```bash
-# instalar dependência
 pip install flask
-
-# rodar
 python app.py
 ```
 
@@ -61,7 +63,7 @@ Acesse **http://localhost:5000** no navegador.
 ## 📁 Estrutura
 
 ```
-MATH_STUDIES/
+src/
 ├── app.py
 ├── static/
 │   ├── gifs/
@@ -77,4 +79,3 @@ MATH_STUDIES/
 └── templates/
     └── index.html
 ```
-
