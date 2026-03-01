@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estudando Matemática 🎀</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎀</text></svg>"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ffe0f0 0%, #fff0f8 50%, #ffd6ec 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        gap: 16px;
+      }
+
+      .characters-top {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .character {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .character:nth-child(2) { animation-delay: 0.4s; }
+      .character:nth-child(3) { animation-delay: 0.8s; }
+      .character:nth-child(4) { animation-delay: 1.2s; }
+      .character:nth-child(5) { animation-delay: 1.6s; }
+
+      .character img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 8px rgba(255,105,180,0.25));
+        display: block;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50%       { transform: translateY(-7px); }
+      }
+
+      .card {
+        background: white;
+        border-radius: 32px;
+        padding: 36px 44px;
+        max-width: 540px;
+        width: 100%;
+        box-shadow: 0 8px 40px rgba(255,105,180,0.18), 0 2px 12px rgba(255,105,180,0.1);
+        border: 3px solid #ffb6d9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: -40px; right: -40px;
+        width: 140px; height: 140px;
+        background: radial-gradient(circle, #ffe0f0 60%, transparent 100%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        bottom: -30px; left: -30px;
+        width: 100px; height: 100px;
+        background: radial-gradient(circle, #ffd6ec 60%, transparent 100%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      header { text-align: center; margin-bottom: 24px; }
+
+      h1 {
+        font-size: 1.55rem;
+        font-weight: 900;
+        color: #d63384;
+        letter-spacing: -0.5px;
+      }
+
+      h1 span { color: #ff69b4; }
+
+      .score-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        background: #fff0f8;
+        border-radius: 16px;
+        padding: 12px 20px;
+        margin-bottom: 24px;
+        border: 2px solid #ffb6d9;
+      }
+
+      .score-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .score-number {
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: #d63384;
+        line-height: 1;
+      }
+
+      .score-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #ff91c1;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .score-divider {
+        width: 2px;
+        height: 36px;
+        background: #ffb6d9;
+        border-radius: 2px;
+      }
+
+      .exercise-box {
+        background: linear-gradient(135deg, #fff0f8, #ffe8f4);
+        border-radius: 20px;
+        padding: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        border: 2px dashed #ffb6d9;
+      }
+
+      .operation-badge {
+        display: inline-block;
+        background: #ff69b4;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 900;
+        padding: 4px 14px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 14px;
+      }
+
+      .exercise-text {
+        font-size: 2.6rem;
+        font-weight: 900;
+        color: #c2185b;
+        letter-spacing: 3px;
+        line-height: 1.2;
+      }
+
+      .question-mark {
+        color: #ff69b4;
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.35; }
+      }
+
+      .answer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 15px 20px;
+        font-size: 1.5rem;
+        font-weight: 900;
+        font-family: "Nunito", sans-serif;
+        color: #c2185b;
+        background: #fff0f8;
+        border: 3px solid #ffb6d9;
+        border-radius: 16px;
+        text-align: center;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        -moz-appearance: textfield;
+      }
+
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+      input[type="number"]:focus {
+        border-color: #ff69b4;
+        box-shadow: 0 0 0 4px rgba(255,105,180,0.15);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 15px 24px;
+        font-size: 1.1rem;
+        font-weight: 900;
+        font-family: "Nunito", sans-serif;
+        border: none;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      }
+
+      .btn:active { transform: scale(0.96); }
+
+      .btn-confirm {
+        background: linear-gradient(135deg, #ff69b4, #e91e8c);
+        color: white;
+        box-shadow: 0 4px 16px rgba(255,105,180,0.4);
+      }
+
+      .btn-confirm:hover:not(:disabled) {
+        box-shadow: 0 6px 20px rgba(255,105,180,0.55);
+        transform: translateY(-2px);
+      }
+
+      .btn-confirm:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .btn-next {
+        background: linear-gradient(135deg, #c084fc, #a855f7);
+        color: white;
+        box-shadow: 0 4px 16px rgba(168,85,247,0.35);
+        display: none;
+      }
+
+      .btn-next:hover {
+        box-shadow: 0 6px 20px rgba(168,85,247,0.5);
+        transform: translateY(-2px);
+      }
+
+      .btn-next.visible { display: block; }
+
+      .feedback-box {
+        border-radius: 20px;
+        padding: 16px 20px;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 14px;
+        display: none;
+        animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      }
+
+      @keyframes pop-in {
+        from { transform: scale(0.8); opacity: 0; }
+        to   { transform: scale(1);   opacity: 1; }
+      }
+
+      .feedback-box.visible { display: block; }
+      .feedback-box.correct { background: #f0fdf4; color: #16a34a; border: 2px solid #bbf7d0; }
+      .feedback-box.wrong   { background: #fff1f5; color: #be185d; border: 2px solid #fecdd3; }
+
+      .feedback-gif {
+        width: 110px;
+        height: 110px;
+        object-fit: contain;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        display: none;
+      }
+
+      .feedback-gif.visible {
+        display: inline-block;
+        animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      }
+
+      .feedback-message-text { font-size: 1.05rem; }
+
+      .feedback-correct-answer {
+        font-size: 0.85rem;
+        margin-top: 4px;
+        opacity: 0.8;
+      }
+
+      .btn-reset {
+        background: none;
+        border: none;
+        color: #ffb6d9;
+        font-size: 0.78rem;
+        font-family: "Nunito", sans-serif;
+        font-weight: 700;
+        cursor: pointer;
+        display: block;
+        margin: 10px auto 0;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        transition: color 0.2s;
+      }
+
+      .btn-reset:hover { color: #ff69b4; }
+
+      .gif-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(255,182,217,0.4);
+        backdrop-filter: blur(3px);
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        cursor: pointer;
+        animation: fade-in 0.2s ease;
+      }
+
+      .gif-overlay.visible { display: flex; }
+
+      @keyframes fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+
+      .gif-overlay img {
+        width: min(320px, 80vw);
+        height: min(320px, 80vw);
+        object-fit: contain;
+        border-radius: 24px;
+        box-shadow: 0 12px 48px rgba(255,105,180,0.4);
+        border: 4px solid white;
+        animation: pop-in 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      }
+
+      .gif-overlay-hint {
+        position: absolute;
+        bottom: 32px;
+        color: white;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        opacity: 0.8;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      }
+
+      .countdown-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(255,182,217,0.55);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .countdown-overlay.visible { display: flex; }
+
+      .countdown-number {
+        font-size: 9rem;
+        font-weight: 900;
+        color: #d63384;
+        line-height: 1;
+        animation: pop-in 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        filter: drop-shadow(0 4px 16px rgba(214,51,132,0.35));
+      }
+
+      .countdown-label {
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: #e91e8c;
+      }
+
+      /* ══ AVALIAÇÃO ══ */
+      .exam-progress-bar {
+        width: 100%;
+        height: 10px;
+        background: #ffe0f0;
+        border-radius: 99px;
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+
+      .exam-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ff69b4, #a855f7);
+        border-radius: 99px;
+        transition: width 0.5s ease;
+      }
+
+      .exam-question-label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #ff91c1;
+        text-align: right;
+        margin-bottom: 18px;
+      }
+
+      /* ── resultado ── */
+      .result-screen {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        text-align: center;
+        animation: pop-in 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      }
+
+      .result-screen.visible { display: flex; }
+
+      .result-grade {
+        font-size: 5rem;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .result-grade.grade-a { color: #16a34a; }
+      .result-grade.grade-b { color: #ca8a04; }
+      .result-grade.grade-c { color: #dc2626; }
+
+      .result-title {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #d63384;
+      }
+
+      .result-stats {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .result-stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff0f8;
+        border: 2px solid #ffb6d9;
+        border-radius: 14px;
+        padding: 12px 18px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #c2185b;
+      }
+
+      .result-stat-row span:last-child {
+        font-size: 1.05rem;
+        font-weight: 900;
+        color: #d63384;
+      }
+
+      /* ── feedback por operação ── */
+      .result-operation-feedback {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .result-operation-feedback-title {
+        font-size: 0.82rem;
+        font-weight: 900;
+        color: #ff91c1;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: left;
+        margin-bottom: 2px;
+      }
+
+      .operation-feedback-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-align: left;
+      }
+
+      .operation-feedback-row.op-great {
+        background: #f0fdf4;
+        color: #16a34a;
+        border: 2px solid #bbf7d0;
+      }
+
+      .operation-feedback-row.op-ok {
+        background: #fefce8;
+        color: #a16207;
+        border: 2px solid #fde68a;
+      }
+
+      .operation-feedback-row.op-improve {
+        background: #fff1f5;
+        color: #be185d;
+        border: 2px solid #fecdd3;
+      }
+
+      .operation-feedback-row.op-none {
+        background: #f8f8f8;
+        color: #aaa;
+        border: 2px solid #eee;
+      }
+
+      .op-feedback-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+      .op-feedback-info { display: flex; flex-direction: column; gap: 2px; }
+
+      .op-feedback-name {
+        font-size: 0.95rem;
+        font-weight: 900;
+        text-transform: capitalize;
+      }
+
+      .op-feedback-detail { font-size: 0.78rem; opacity: 0.85; font-weight: 700; }
+
+      /* barra de acerto por operação */
+      .op-feedback-bar-track {
+        flex: 1;
+        height: 8px;
+        background: rgba(0,0,0,0.08);
+        border-radius: 99px;
+        overflow: hidden;
+        min-width: 50px;
+      }
+
+      .op-feedback-bar-fill {
+        height: 100%;
+        border-radius: 99px;
+        transition: width 0.6s ease;
+      }
+
+      .op-great .op-feedback-bar-fill  { background: #22c55e; }
+      .op-ok    .op-feedback-bar-fill  { background: #eab308; }
+      .op-improve .op-feedback-bar-fill { background: #f43f5e; }
+      .op-none  .op-feedback-bar-fill  { background: #ccc; }
+
+      /* ── questões ── */
+      .result-questions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .result-questions-title {
+        font-size: 0.82rem;
+        font-weight: 900;
+        color: #ff91c1;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: left;
+        margin-bottom: 2px;
+      }
+
+      .result-question-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 12px;
+        padding: 10px 16px;
+        font-size: 0.88rem;
+        font-weight: 700;
+      }
+
+      .result-question-row.correct { background: #f0fdf4; color: #16a34a; border: 1.5px solid #bbf7d0; }
+      .result-question-row.wrong   { background: #fff1f5; color: #be185d; border: 1.5px solid #fecdd3; }
+
+      .result-question-expr { font-size: 1rem; font-weight: 900; }
+
+      .btn-exam-mode {
+        background: linear-gradient(135deg, #a855f7, #7c3aed);
+        color: white;
+        border: none;
+        border-radius: 18px;
+        padding: 14px 32px;
+        font-size: 1rem;
+        font-weight: 900;
+        font-family: "Nunito", sans-serif;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(124,58,237,0.4);
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+
+      .btn-exam-mode:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(124,58,237,0.5);
+      }
+
+      .btn-exam-mode:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-back-practice {
+        background: linear-gradient(135deg, #ff69b4, #e91e8c);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        padding: 15px 24px;
+        font-size: 1.05rem;
+        font-weight: 900;
+        font-family: "Nunito", sans-serif;
+        cursor: pointer;
+        width: 100%;
+        box-shadow: 0 4px 16px rgba(255,105,180,0.4);
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+
+      .btn-back-practice:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255,105,180,0.55);
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="gif-overlay" id="gif-overlay" onclick="closeOverlay()">
+      <img id="gif-overlay-img" src="" alt="reação" />
+      <span class="gif-overlay-hint">clique para fechar</span>
+    </div>
+
+    <div class="countdown-overlay" id="countdown-overlay">
+      <div class="countdown-number" id="countdown-number">3</div>
+      <div class="countdown-label">Prepare-se! 🎀</div>
+    </div>
+
+    <div class="characters-top">
+      <div class="character"><img src="/static/images/hello_kitty.png" alt="Hello Kitty" /></div>
+      <div class="character"><img src="/static/images/kuromi.png" alt="Kuromi" /></div>
+      <div class="character"><img src="/static/images/my_melody.png" alt="My Melody" /></div>
+      <div class="character"><img src="/static/images/Cinnamoroll.png" alt="Cinnamoroll" /></div>
+      <div class="character"><img src="/static/images/pompompurin.png" alt="Pompompurin" /></div>
+    </div>
+
+    <div class="card">
+      <header>
+        <h1>Estudando <span>Matemática</span> 🎀</h1>
+      </header>
+
+      <!-- ══ PRÁTICA ══ -->
+      <div id="practice-screen">
+        <div class="score-bar">
+          <div class="score-item">
+            <span class="score-number" id="score-correct">0</span>
+            <span class="score-label">✅ Acertos</span>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-item">
+            <span class="score-number" id="score-total">0</span>
+            <span class="score-label">📝 Tentativas</span>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-item">
+            <span class="score-number" id="score-pct">—</span>
+            <span class="score-label">🌸 Aproveit.</span>
+          </div>
+        </div>
+
+        <div class="exercise-box">
+          <div class="operation-badge" id="operation-badge">carregando...</div>
+          <div class="exercise-text" id="exercise-text">
+            — <span class="question-mark">?</span>
+          </div>
+        </div>
+
+        <div class="answer-section">
+          <input type="number" id="answer-input" placeholder="Sua resposta aqui 💕" autocomplete="off" />
+          <button class="btn btn-confirm" id="btn-confirm" onclick="submitAnswer()">Confirmar 💖</button>
+        </div>
+
+        <div class="feedback-box" id="feedback-box">
+          <img class="feedback-gif" id="feedback-gif" src="" alt="reação" />
+          <div class="feedback-message-text" id="feedback-message"></div>
+          <div class="feedback-correct-answer" id="feedback-correct-answer"></div>
+        </div>
+
+        <button class="btn btn-next" id="btn-next" onclick="loadExercise()">Próximo exercício ➡️</button>
+        <button class="btn-reset" onclick="resetScore()">🔄 Reiniciar pontuação</button>
+      </div>
+
+      <!-- ══ AVALIAÇÃO ══ -->
+      <div id="exam-screen" style="display:none;">
+
+        <div id="exam-question-area">
+          <div class="exam-progress-bar">
+            <div class="exam-progress-fill" id="exam-progress-fill" style="width:0%"></div>
+          </div>
+          <div class="exam-question-label" id="exam-question-label">Questão 1 de 5</div>
+
+          <div class="exercise-box">
+            <div class="operation-badge" id="exam-operation-badge">—</div>
+            <div class="exercise-text" id="exam-exercise-text">
+              — <span class="question-mark">?</span>
+            </div>
+          </div>
+
+          <div class="answer-section">
+            <input type="number" id="exam-answer-input" placeholder="Sua resposta aqui 💕" autocomplete="off" />
+            <button class="btn btn-confirm" id="exam-btn-confirm" onclick="submitExamAnswer()">Confirmar 💖</button>
+          </div>
+        </div>
+
+        <!-- resultado -->
+        <div class="result-screen" id="result-screen">
+          <div class="result-grade" id="result-grade">—</div>
+          <div class="result-title"  id="result-title">—</div>
+          <div class="result-stats"  id="result-stats"></div>
+
+          <!-- feedback por operação -->
+          <div class="result-operation-feedback" id="result-operation-feedback">
+            <div class="result-operation-feedback-title">📊 Desempenho por operação</div>
+          </div>
+
+          <!-- detalhe das questões -->
+          <div class="result-questions" id="result-questions">
+            <div class="result-questions-title">📝 Questão a questão</div>
+          </div>
+
+          <button class="btn-back-practice" onclick="exitExamMode()">🌸 Voltar para prática</button>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="btn-exam-mode" id="btn-exam-mode" onclick="startExamCountdown()">
+      📝 Iniciar Avaliação
+    </button>
+
+    <script>
+      const GIF_CORRECT      = "/static/gifs/acerto.gif";
+      const GIF_WRONG        = "/static/gifs/errado.gif";
+      const OVERLAY_DURATION = 2200;
+      const EXAM_TOTAL       = 5;
+
+      const OPERATION_META = {
+        "soma":          { icon: "➕", label: "Soma" },
+        "subtração":     { icon: "➖", label: "Subtração" },
+        "multiplicação": { icon: "✖️",  label: "Multiplicação" },
+        "divisão":       { icon: "➗", label: "Divisão" },
+      };
+
+      let overlayTimer      = null;
+      let examAnswers       = [];
+      let examStartTime     = null;
+      let questionStartTime = null;
+
+      /* ── bloquear letras ── */
+      function blockNonNumeric(event) {
+        const allowed = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter"];
+        if (allowed.includes(event.key) || (event.key >= "0" && event.key <= "9")) return;
+        event.preventDefault();
+      }
+
+      document.getElementById("answer-input")
+        .addEventListener("keydown", blockNonNumeric);
+      document.getElementById("exam-answer-input")
+        .addEventListener("keydown", blockNonNumeric);
+
+      document.getElementById("answer-input")
+        .addEventListener("keydown", (e) => { if (e.key === "Enter") submitAnswer(); });
+      document.getElementById("exam-answer-input")
+        .addEventListener("keydown", (e) => { if (e.key === "Enter") submitExamAnswer(); });
+
+      /* ���═ PRÁTICA ══ */
+      async function loadExercise() {
+        const response = await fetch("/api/exercise");
+        const data     = await response.json();
+
+        document.getElementById("operation-badge").textContent = data.exercise.operation_name;
+        document.getElementById("exercise-text").innerHTML =
+          `${data.exercise.first_number} &nbsp;${data.exercise.symbol}&nbsp; ` +
+          `${data.exercise.second_number} &nbsp;= &nbsp;<span class="question-mark">?</span>`;
+
+        const input    = document.getElementById("answer-input");
+        input.value    = "";
+        input.disabled = false;
+        input.focus();
+
+        document.getElementById("btn-confirm").disabled = false;
+        document.getElementById("feedback-box").classList.remove("visible","correct","wrong");
+
+        const gif = document.getElementById("feedback-gif");
+        gif.classList.remove("visible");
+        gif.src = "";
+
+        document.getElementById("btn-next").classList.remove("visible");
+        updateScoreDisplay(data.score);
+      }
+
+      async function submitAnswer() {
+        const input = document.getElementById("answer-input");
+        const raw   = input.value.trim();
+        if (raw === "") return;
+
+        const response = await fetch("/api/answer", {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify({ answer: raw }),
+        });
+
+        const data = await response.json();
+
+        input.disabled = true;
+        document.getElementById("btn-confirm").disabled = true;
+
+        showPracticeFeedback(data);
+        showOverlayGif(data.correct);
+        updateScoreDisplay(data.score);
+        document.getElementById("btn-next").classList.add("visible");
+      }
+
+      function showPracticeFeedback(data) {
+        const box = document.getElementById("feedback-box");
+        const gif = document.getElementById("feedback-gif");
+
+        box.classList.add("visible");
+
+        if (data.correct) {
+          box.classList.add("correct");
+          box.classList.remove("wrong");
+          gif.src = GIF_CORRECT;
+          document.getElementById("feedback-correct-answer").textContent = "";
+        } else {
+          box.classList.add("wrong");
+          box.classList.remove("correct");
+          gif.src = GIF_WRONG;
+          document.getElementById("feedback-correct-answer").textContent =
+            `A resposta certa era ${data.correct_answer} 💡`;
+        }
+
+        gif.classList.add("visible");
+        document.getElementById("feedback-message").textContent = data.message;
+      }
+
+      async function resetScore() {
+        await fetch("/api/score/reset", { method: "POST" });
+        updateScoreDisplay({ correct: 0, total: 0 });
+      }
+
+      function updateScoreDisplay(score) {
+        document.getElementById("score-correct").textContent = score.correct;
+        document.getElementById("score-total").textContent   = score.total;
+        document.getElementById("score-pct").textContent     =
+          score.total === 0 ? "—" : Math.round((score.correct / score.total) * 100) + "%";
+      }
+
+      /* ── overlay GIF ── */
+      function showOverlayGif(isCorrect) {
+        const overlay    = document.getElementById("gif-overlay");
+        const overlayImg = document.getElementById("gif-overlay-img");
+        overlayImg.src   = "";
+        overlayImg.src   = isCorrect ? GIF_CORRECT : GIF_WRONG;
+        overlay.classList.add("visible");
+        if (overlayTimer) clearTimeout(overlayTimer);
+        overlayTimer = setTimeout(closeOverlay, OVERLAY_DURATION);
+      }
+
+      function closeOverlay() {
+        document.getElementById("gif-overlay").classList.remove("visible");
+        if (overlayTimer) { clearTimeout(overlayTimer); overlayTimer = null; }
+      }
+
+      /* ══ CONTAGEM ══ */
+      function startExamCountdown() {
+        document.getElementById("btn-exam-mode").disabled = true;
+
+        const overlay = document.getElementById("countdown-overlay");
+        const number  = document.getElementById("countdown-number");
+
+        let count = 3;
+        number.textContent = count;
+        overlay.classList.add("visible");
+
+        const tick = setInterval(() => {
+          count--;
+          if (count <= 0) {
+            clearInterval(tick);
+            overlay.classList.remove("visible");
+            enterExamMode();
+          } else {
+            number.style.animation = "none";
+            number.offsetHeight;
+            number.style.animation = "";
+            number.textContent = count;
+          }
+        }, 1000);
+      }
+
+      /* ══ AVALIAÇÃO ══ */
+      async function enterExamMode() {
+        examAnswers   = [];
+        examStartTime = Date.now();
+
+        document.getElementById("practice-screen").style.display    = "none";
+        document.getElementById("exam-screen").style.display        = "block";
+        document.getElementById("result-screen").classList.remove("visible");
+        document.getElementById("exam-question-area").style.display = "block";
+
+        await loadExamQuestion();
+      }
+
+      async function loadExamQuestion() {
+        const response = await fetch("/api/exam/question");
+        const data     = await response.json();
+
+        const questionNumber = examAnswers.length + 1;
+
+        document.getElementById("exam-question-label").textContent =
+          `Questão ${questionNumber} de ${EXAM_TOTAL}`;
+        document.getElementById("exam-progress-fill").style.width =
+          `${((questionNumber - 1) / EXAM_TOTAL) * 100}%`;
+
+        document.getElementById("exam-operation-badge").textContent =
+          data.exercise.operation_name;
+        document.getElementById("exam-exercise-text").innerHTML =
+          `${data.exercise.first_number} &nbsp;${data.exercise.symbol}&nbsp; ` +
+          `${data.exercise.second_number} &nbsp;= &nbsp;<span class="question-mark">?</span>`;
+
+        const input    = document.getElementById("exam-answer-input");
+        input.value    = "";
+        input.disabled = false;
+        input.focus();
+
+        document.getElementById("exam-btn-confirm").disabled = false;
+        questionStartTime = Date.now();
+      }
+
+      async function submitExamAnswer() {
+        const input = document.getElementById("exam-answer-input");
+        const raw   = input.value.trim();
+        if (raw === "") return;
+
+        const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
+
+        input.disabled = true;
+        document.getElementById("exam-btn-confirm").disabled = true;
+
+        const response = await fetch("/api/exam/answer", {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify({ answer: raw, time_spent: timeSpent }),
+        });
+
+        const data = await response.json();
+
+        examAnswers.push({
+          expression:     document.getElementById("exam-exercise-text").innerText.trim(),
+          operation:      document.getElementById("exam-operation-badge").textContent.trim(),
+          given:          parseInt(raw),
+          correct_answer: data.correct_answer,
+          is_correct:     data.correct,
+          time_spent:     timeSpent,
+        });
+
+        if (examAnswers.length >= EXAM_TOTAL) {
+          finishExam();
+        } else {
+          await loadExamQuestion();
+        }
+      }
+
+      /* ── agrupa respostas por operação e gera feedback ── */
+      function buildOperationFeedback(answers) {
+        const grouped = {};
+
+        answers.forEach((answer) => {
+          const op = answer.operation;
+          if (!grouped[op]) grouped[op] = { total: 0, correct: 0 };
+          grouped[op].total++;
+          if (answer.is_correct) grouped[op].correct++;
+        });
+
+        return Object.entries(grouped).map(([op, stats]) => {
+          const rate = stats.correct / stats.total;
+          const meta = OPERATION_META[op] || { icon: "🔢", label: op };
+
+          let cssClass, message;
+
+          if (rate === 1) {
+            cssClass = "op-great";
+            message  = "Mandou muito bem! Continue assim! 🌟";
+          } else if (rate >= 0.5) {
+            cssClass = "op-ok";
+            message  = "Quase lá! Vale revisar mais um pouco 📖";
+          } else {
+            cssClass = "op-improve";
+            message  = "Precisa praticar mais essa operação 💪";
+          }
+
+          return { op, meta, stats, rate, cssClass, message };
+        });
+      }
+
+      function finishExam() {
+        const totalTime    = Math.floor((Date.now() - examStartTime) / 1000);
+        const totalCorrect = examAnswers.filter(a => a.is_correct).length;
+        const grade        = Math.round((totalCorrect / EXAM_TOTAL) * 10);
+        const avgTime      = Math.round(totalTime / EXAM_TOTAL);
+
+        document.getElementById("exam-question-area").style.display = "none";
+        document.getElementById("exam-progress-fill").style.width   = "100%";
+
+        const gradeEl       = document.getElementById("result-grade");
+        gradeEl.textContent = `${grade}/10`;
+        gradeEl.className   = "result-grade " +
+          (grade >= 7 ? "grade-a" : grade >= 5 ? "grade-b" : "grade-c");
+
+        const titles = {
+          "grade-a": "Arrasou na prova! 🎉🎀",
+          "grade-b": "Quase lá! Continue estudando! 🌸",
+          "grade-c": "Bora praticar mais! Você consegue! 💪",
+        };
+        const titleClass = grade >= 7 ? "grade-a" : grade >= 5 ? "grade-b" : "grade-c";
+        document.getElementById("result-title").textContent = titles[titleClass];
+
+        const minutes   = Math.floor(totalTime / 60);
+        const seconds   = totalTime % 60;
+        const timeLabel = minutes > 0 ? `${minutes}min ${seconds}s` : `${seconds}s`;
+
+        document.getElementById("result-stats").innerHTML = `
+          <div class="result-stat-row">
+            <span>✅ Acertos</span><span>${totalCorrect} de ${EXAM_TOTAL}</span>
+          </div>
+          <div class="result-stat-row">
+            <span>🏆 Nota</span><span>${grade}/10</span>
+          </div>
+          <div class="result-stat-row">
+            <span>⏱ Tempo total</span><span>${timeLabel}</span>
+          </div>
+          <div class="result-stat-row">
+            <span>⚡ Tempo médio por questão</span><span>${avgTime}s</span>
+          </div>
+        `;
+
+        /* feedback por operação */
+        const opFeedbacks = buildOperationFeedback(examAnswers);
+        const opRows = opFeedbacks.map(({ op, meta, stats, rate, cssClass, message }) => `
+          <div class="operation-feedback-row ${cssClass}">
+            <span class="op-feedback-icon">${meta.icon}</span>
+            <div class="op-feedback-info">
+              <span class="op-feedback-name">${meta.label}</span>
+              <span class="op-feedback-detail">${stats.correct}/${stats.total} acerto(s) · ${message}</span>
+            </div>
+            <div class="op-feedback-bar-track">
+              <div class="op-feedback-bar-fill" style="width:${Math.round(rate * 100)}%"></div>
+            </div>
+          </div>
+        `).join("");
+
+        document.getElementById("result-operation-feedback").innerHTML =
+          `<div class="result-operation-feedback-title">📊 Desempenho por operação</div>${opRows}`;
+
+        /* questão a questão */
+        const questionRows = examAnswers.map((answer, index) => {
+          const icon  = answer.is_correct ? "✅" : "❌";
+          const klass = answer.is_correct ? "correct" : "wrong";
+          const given = answer.expression.replace("?", `<strong>${answer.given}</strong>`);
+          const hint  = answer.is_correct
+            ? `${answer.time_spent}s`
+            : `correto: ${answer.correct_answer} · ${answer.time_spent}s`;
+          return `
+            <div class="result-question-row ${klass}">
+              <span>${icon} Q${index + 1}&nbsp;
+                <span class="result-question-expr">${given}</span>
+              </span>
+              <span>${hint}</span>
+            </div>`;
+        }).join("");
+
+        document.getElementById("result-questions").innerHTML =
+          `<div class="result-questions-title">📝 Questão a questão</div>${questionRows}`;
+
+        document.getElementById("result-screen").classList.add("visible");
+      }
+
+      function exitExamMode() {
+        document.getElementById("exam-screen").style.display     = "none";
+        document.getElementById("practice-screen").style.display = "block";
+        document.getElementById("btn-exam-mode").disabled        = false;
+        loadExercise();
+      }
+
+      loadExercise();
+    </script>
+  </body>
+</html>
