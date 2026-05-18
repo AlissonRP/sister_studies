@@ -29,7 +29,8 @@ Desenvolvido com auxílio do *(Claude Sonnet 4.6)*.
 
 ### Modo Avaliação
 - Contagem regressiva de 3s antes de começar
-- 5 questões seguidas sem distrações, estilo prova
+- 8 questões seguidas sem distrações, estilo prova
+- Avaliação sempre mistura operações diretas, problemas interpretativos e decomposição
 - Tela de loading com barra de aproveitamento animada ao final
 - Resultado completo com:
   - Nota (0–10)
@@ -44,6 +45,8 @@ Desenvolvido com auxílio do *(Claude Sonnet 4.6)*.
 | Subtração | Resultado sempre positivo, números grandes |
 | Multiplicação | Esquerda até 3 dígitos × direita 1 dígito |
 | Divisão | Divisor até 10, dividendo grande, sempre exata |
+| Decomposição | Número de até 5 dígitos em forma expandida, com os sinais de + já na tela |
+| Problemas interpretativos | Enunciados curtos envolvendo soma, subtração, multiplicação e divisão |
 
 ---
 

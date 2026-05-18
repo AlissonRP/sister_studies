@@ -141,6 +141,13 @@
         line-height: 1.2;
       }
 
+      .exercise-text.word-problem {
+        font-size: 1.25rem;
+        letter-spacing: 0;
+        line-height: 1.35;
+        text-align: left;
+      }
+
       .question-mark { color: #ff69b4; animation: pulse 1.5s ease-in-out infinite; }
 
       @keyframes pulse {
@@ -150,7 +157,8 @@
 
       .answer-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
 
-      input[type="number"] {
+      input[type="number"],
+      input[type="text"] {
         width: 100%;
         padding: 15px 20px;
         font-size: 1.5rem;
@@ -169,9 +177,33 @@
       input[type="number"]::-webkit-outer-spin-button,
       input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 
-      input[type="number"]:focus {
+      input[type="number"]:focus,
+      input[type="text"]:focus {
         border-color: #ff69b4;
         box-shadow: 0 0 0 4px rgba(255,105,180,0.15);
+      }
+
+      .decomposition-inputs {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .decomposition-inputs.visible { display: flex; }
+
+      .decomposition-input {
+        width: clamp(72px, 24%, 104px);
+        padding: 13px 10px;
+        font-size: 1.15rem;
+      }
+
+      .decomposition-plus {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: #ff69b4;
+        line-height: 1;
       }
 
       .btn {
@@ -466,12 +498,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 12px;
         border-radius: 12px;
         padding: 10px 16px;
         font-size: 0.88rem;
         font-weight: 700;
       }
 
+      .result-question-row span:first-child { min-width: 0; text-align: left; }
+      .result-question-row span:last-child { flex-shrink: 0; }
       .result-question-row.correct { background: #f0fdf4; color: #16a34a; border: 1.5px solid #bbf7d0; }
       .result-question-row.wrong   { background: #fff1f5; color: #be185d; border: 1.5px solid #fecdd3; }
       .result-question-expr { font-size: 1rem; font-weight: 900; }
@@ -563,7 +598,8 @@
         </div>
 
         <div class="answer-section">
-          <input type="number" id="answer-input" placeholder="Sua resposta aqui ��" autocomplete="off" />
+          <input type="number" id="answer-input" placeholder="Sua resposta aqui 💕" autocomplete="off" />
+          <div class="decomposition-inputs" id="decomposition-inputs"></div>
           <button class="btn btn-confirm" id="btn-confirm" onclick="submitAnswer()">Confirmar 💖</button>
         </div>
 
@@ -584,7 +620,7 @@
           <div class="exam-progress-bar">
             <div class="exam-progress-fill" id="exam-progress-fill" style="width:0%"></div>
           </div>
-          <div class="exam-question-label" id="exam-question-label">Questão 1 de 5</div>
+          <div class="exam-question-label" id="exam-question-label">Questão 1 de 8</div>
 
           <div class="exercise-box">
             <div class="operation-badge" id="exam-operation-badge">—</div>
@@ -595,6 +631,7 @@
 
           <div class="answer-section">
             <input type="number" id="exam-answer-input" placeholder="Sua resposta aqui 💕" autocomplete="off" />
+            <div class="decomposition-inputs" id="exam-decomposition-inputs"></div>
             <button class="btn btn-confirm" id="exam-btn-confirm" onclick="submitExamAnswer()">Confirmar 💖</button>
           </div>
         </div>
@@ -635,7 +672,7 @@
       const GIF_CORRECT      = "/static/gifs/acerto.gif";
       const GIF_WRONG        = "/static/gifs/errado.gif";
       const OVERLAY_DURATION = 2200;
-      const EXAM_TOTAL       = 5;
+      const EXAM_TOTAL       = 8;
       const LOADING_DURATION = 1800;
 
       const OPERATION_META = {
@@ -643,6 +680,7 @@
         "subtração":     { icon: "➖", label: "Subtração" },
         "multiplicação": { icon: "✖️",  label: "Multiplicação" },
         "divisão":       { icon: "➗", label: "Divisão" },
+        "decomposição":  { icon: "🔢", label: "Decomposição" },
       };
 
       let overlayTimer      = null;
@@ -651,6 +689,7 @@
       let questionStartTime = null;
 
       function blockNonNumeric(event) {
+        if (event.ctrlKey || event.metaKey) return;
         const allowed = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter"];
         if (allowed.includes(event.key) || (event.key >= "0" && event.key <= "9")) return;
         event.preventDefault();
@@ -666,19 +705,93 @@
         .addEventListener("keydown", (e) => { if (e.key === "Enter") submitExamAnswer(); });
 
       /* ══ PRÁTICA ══ */
+      function formatExerciseText(exercise) {
+        if (exercise.question_text) {
+          return exercise.question_text;
+        }
+
+        if (exercise.operation_name === "decomposição") {
+          return `${exercise.first_number} &nbsp;=&nbsp; <span class="question-mark">?</span>`;
+        }
+
+        return `${exercise.first_number} &nbsp;${exercise.symbol}&nbsp; ` +
+          `${exercise.second_number} &nbsp;= &nbsp;<span class="question-mark">?</span>`;
+      }
+
+      function setupAnswerInput(input, decompositionBox, exercise) {
+        const isDecomposition = exercise.operation_name === "decomposição";
+
+        input.style.display = isDecomposition ? "none" : "block";
+        decompositionBox.classList.toggle("visible", isDecomposition);
+        decompositionBox.innerHTML = "";
+
+        if (!isDecomposition) return;
+
+        exercise.correct_terms.forEach((term, index) => {
+          const termInput = document.createElement("input");
+          termInput.type = "number";
+          termInput.inputMode = "numeric";
+          termInput.className = "decomposition-input";
+          termInput.placeholder = "?";
+          termInput.autocomplete = "off";
+          termInput.addEventListener("keydown", blockNonNumeric);
+          termInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              input.id === "answer-input" ? submitAnswer() : submitExamAnswer();
+            }
+          });
+          termInput.addEventListener("input", () => {
+            if (termInput.value.length >= String(term).length) {
+              const next = decompositionBox.querySelectorAll(".decomposition-input")[index + 1];
+              if (next) next.focus();
+            }
+          });
+          decompositionBox.appendChild(termInput);
+
+          if (index < exercise.correct_terms.length - 1) {
+            const plus = document.createElement("span");
+            plus.className = "decomposition-plus";
+            plus.textContent = "+";
+            decompositionBox.appendChild(plus);
+          }
+        });
+      }
+
+      function getAnswerValue(input, decompositionBox) {
+        if (!decompositionBox.classList.contains("visible")) {
+          return input.value.trim();
+        }
+
+        return Array.from(decompositionBox.querySelectorAll(".decomposition-input"))
+          .map((termInput) => termInput.value.trim());
+      }
+
+      function focusAnswer(input, decompositionBox) {
+        const firstDecompositionInput = decompositionBox.querySelector(".decomposition-input");
+        if (firstDecompositionInput) {
+          firstDecompositionInput.focus();
+        } else {
+          input.focus();
+        }
+      }
+
       async function loadExercise() {
         const response = await fetch("/api/exercise");
         const data     = await response.json();
 
-        document.getElementById("operation-badge").textContent = data.exercise.operation_name;
-        document.getElementById("exercise-text").innerHTML =
-          `${data.exercise.first_number} &nbsp;${data.exercise.symbol}&nbsp; ` +
-          `${data.exercise.second_number} &nbsp;= &nbsp;<span class="question-mark">?</span>`;
+        const operationBadge = document.getElementById("operation-badge");
+        operationBadge.textContent = data.exercise.badge_text || data.exercise.operation_name;
+        operationBadge.dataset.operationName = data.exercise.operation_name;
+        const exerciseText = document.getElementById("exercise-text");
+        exerciseText.classList.toggle("word-problem", Boolean(data.exercise.question_text));
+        exerciseText.innerHTML = formatExerciseText(data.exercise);
 
-        const input    = document.getElementById("answer-input");
+        const input = document.getElementById("answer-input");
+        const decompositionBox = document.getElementById("decomposition-inputs");
+        setupAnswerInput(input, decompositionBox, data.exercise);
         input.value    = "";
         input.disabled = false;
-        input.focus();
+        focusAnswer(input, decompositionBox);
 
         document.getElementById("btn-confirm").disabled = false;
         document.getElementById("feedback-box").classList.remove("visible","correct","wrong");
@@ -693,8 +806,9 @@
 
       async function submitAnswer() {
         const input = document.getElementById("answer-input");
-        const raw   = input.value.trim();
-        if (raw === "") return;
+        const decompositionBox = document.getElementById("decomposition-inputs");
+        const raw = getAnswerValue(input, decompositionBox);
+        if (Array.isArray(raw) ? raw.some((part) => part === "") : raw === "") return;
 
         const response = await fetch("/api/answer", {
           method: "POST",
@@ -703,7 +817,14 @@
         });
 
         const data = await response.json();
+        if (!response.ok) {
+          focusAnswer(input, decompositionBox);
+          return;
+        }
+
         input.disabled = true;
+        decompositionBox.querySelectorAll(".decomposition-input")
+          .forEach((termInput) => { termInput.disabled = true; });
         document.getElementById("btn-confirm").disabled = true;
 
         showPracticeFeedback(data);
@@ -803,7 +924,8 @@
       }
 
       async function loadExamQuestion() {
-        const response = await fetch("/api/exam/question");
+        const isFirstQuestion = examAnswers.length === 0;
+        const response = await fetch(`/api/exam/question${isFirstQuestion ? "?start=1" : ""}`);
         const data     = await response.json();
 
         const questionNumber = examAnswers.length + 1;
@@ -813,16 +935,19 @@
         document.getElementById("exam-progress-fill").style.width =
           `${((questionNumber - 1) / EXAM_TOTAL) * 100}%`;
 
-        document.getElementById("exam-operation-badge").textContent =
-          data.exercise.operation_name;
-        document.getElementById("exam-exercise-text").innerHTML =
-          `${data.exercise.first_number} &nbsp;${data.exercise.symbol}&nbsp; ` +
-          `${data.exercise.second_number} &nbsp;= &nbsp;<span class="question-mark">?</span>`;
+        const examOperationBadge = document.getElementById("exam-operation-badge");
+        examOperationBadge.textContent = data.exercise.badge_text || data.exercise.operation_name;
+        examOperationBadge.dataset.operationName = data.exercise.operation_name;
+        const examExerciseText = document.getElementById("exam-exercise-text");
+        examExerciseText.classList.toggle("word-problem", Boolean(data.exercise.question_text));
+        examExerciseText.innerHTML = formatExerciseText(data.exercise);
 
-        const input    = document.getElementById("exam-answer-input");
+        const input = document.getElementById("exam-answer-input");
+        const decompositionBox = document.getElementById("exam-decomposition-inputs");
+        setupAnswerInput(input, decompositionBox, data.exercise);
         input.value    = "";
         input.disabled = false;
-        input.focus();
+        focusAnswer(input, decompositionBox);
 
         document.getElementById("exam-btn-confirm").disabled = false;
         questionStartTime = Date.now();
@@ -830,8 +955,9 @@
 
       async function submitExamAnswer() {
         const input = document.getElementById("exam-answer-input");
-        const raw   = input.value.trim();
-        if (raw === "") return;
+        const decompositionBox = document.getElementById("exam-decomposition-inputs");
+        const raw = getAnswerValue(input, decompositionBox);
+        if (Array.isArray(raw) ? raw.some((part) => part === "") : raw === "") return;
 
         const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
         input.disabled = true;
@@ -844,14 +970,25 @@
         });
 
         const data = await response.json();
+        if (!response.ok) {
+          input.disabled = false;
+          document.getElementById("exam-btn-confirm").disabled = false;
+          focusAnswer(input, decompositionBox);
+          return;
+        }
+
+        decompositionBox.querySelectorAll(".decomposition-input")
+          .forEach((termInput) => { termInput.disabled = true; });
 
         examAnswers.push({
           expression:     document.getElementById("exam-exercise-text").innerText.trim(),
-          operation:      document.getElementById("exam-operation-badge").textContent.trim(),
-          given:          parseInt(raw),
+          operation:      document.getElementById("exam-operation-badge").dataset.operationName,
+          badge:          document.getElementById("exam-operation-badge").textContent.trim(),
+          given:          Array.isArray(raw) ? raw.join("+") : raw,
           correct_answer: data.correct_answer,
           is_correct:     data.correct,
           time_spent:     timeSpent,
+          is_problem:     document.getElementById("exam-exercise-text").classList.contains("word-problem"),
         });
 
         if (examAnswers.length >= EXAM_TOTAL) {
@@ -1001,7 +1138,9 @@
         const questionRows = examAnswers.map((answer, index) => {
           const icon  = answer.is_correct ? "✅" : "❌";
           const klass = answer.is_correct ? "correct" : "wrong";
-          const given = answer.expression.replace("?", `<strong>${answer.given}</strong>`);
+          const given = answer.is_problem
+            ? `<strong>${answer.badge}</strong>: ${answer.expression} Resposta: <strong>${answer.given}</strong>`
+            : answer.expression.replace("?", `<strong>${answer.given}</strong>`);
           const hint  = answer.is_correct
             ? `${answer.time_spent}s`
             : `correto: ${answer.correct_answer} · ${answer.time_spent}s`;
