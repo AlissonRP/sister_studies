@@ -172,7 +172,7 @@ function generateWordProblem() {
     correct_answer: calculate(firstNumber, secondNumber),
     correct_terms: [],
     question_text: questionText,
-    badge_text: `problema de ${operationName}`,
+    badge_text: "problema",
   };
 }
 
@@ -186,7 +186,7 @@ function generateInterpretationExercise() {
     correct_answer: answer,
     correct_terms: [],
     question_text: questionText,
-    badge_text: "problema de interpretação",
+    badge_text: "interpretação",
   };
 }
 

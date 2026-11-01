@@ -40,6 +40,7 @@
       body {
         font-family: "Nunito", sans-serif;
         min-height: 100vh;
+        min-height: 100dvh;
         background: linear-gradient(135deg, #ffe0f0 0%, #fff0f8 50%, #ffd6ec 100%);
         display: flex;
         flex-direction: column;
@@ -107,6 +108,8 @@
         pointer-events: none;
       }
 
+      .card > * { position: relative; z-index: 1; }
+
       header { text-align: center; margin-bottom: 24px; }
       h1 { font-size: 1.55rem; font-weight: 900; color: #d63384; letter-spacing: -0.5px; }
       h1 span { color: #ff69b4; }
@@ -123,7 +126,7 @@
         border: 2px solid #ffb6d9;
       }
 
-      .score-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+      .score-item { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
       .score-number { font-size: 1.6rem; font-weight: 900; color: #d63384; line-height: 1; }
 
       .score-label {
@@ -196,11 +199,16 @@
       }
 
       .exercise-text.word-problem {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #831843;
         letter-spacing: 0;
-        line-height: 1.35;
+        line-height: 1.5;
         text-align: left;
       }
+
+      .nowrap { white-space: nowrap; }
+      .operation-badge[hidden] { display: none; }
 
       .question-mark { color: #ff69b4; animation: pulse 1.5s ease-in-out infinite; }
 
@@ -228,6 +236,8 @@
         -moz-appearance: textfield;
       }
 
+      input::placeholder { font-size: 1.05rem; font-weight: 700; color: #ffa3cf; }
+
       input[type="number"]::-webkit-outer-spin-button,
       input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 
@@ -247,7 +257,7 @@
 
       .decomposition-inputs.visible { display: flex; }
 
-      .decomposition-input {
+      .decomposition-inputs .decomposition-input {
         width: clamp(72px, 24%, 104px);
         padding: 13px 10px;
         font-size: 1.15rem;
@@ -320,11 +330,6 @@
       .feedback-gif { width: 110px; height: 110px; object-fit: contain; border-radius: 12px; margin-bottom: 8px; display: none; }
       .feedback-gif.visible { display: inline-block; animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1); }
       .feedback-message-text { font-size: 1.05rem; }
-
-      /* No celular os GIFs de reação ficam escondidos, só a mensagem aparece */
-      @media (max-width: 700px), (pointer: coarse) {
-        .feedback-gif.visible { display: none; }
-      }
       .feedback-correct-answer { font-size: 0.85rem; margin-top: 4px; opacity: 0.8; }
 
       .btn-reset {
@@ -541,7 +546,7 @@
       .operation-feedback-row.op-improve { background: #fff1f5; color: #be185d; border: 2px solid #fecdd3; }
 
       .op-feedback-icon { font-size: 1.4rem; flex-shrink: 0; }
-      .op-feedback-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+      .op-feedback-info { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
       .op-feedback-name { font-size: 0.95rem; font-weight: 900; text-transform: capitalize; }
       .op-feedback-detail { font-size: 0.78rem; opacity: 0.85; font-weight: 700; }
 
@@ -564,7 +569,7 @@
         font-weight: 700;
       }
 
-      .result-question-row span:first-child { min-width: 0; text-align: left; }
+      .result-question-row span:first-child { min-width: 0; text-align: left; overflow-wrap: anywhere; }
       .result-question-row span:last-child { flex-shrink: 0; }
       .result-question-row.correct { background: #f0fdf4; color: #16a34a; border: 1.5px solid #bbf7d0; }
       .result-question-row.wrong   { background: #fff1f5; color: #be185d; border: 1.5px solid #fecdd3; }
@@ -603,13 +608,73 @@
       }
 
       .btn-back-practice:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,105,180,0.55); }
+
+      /* ══ CELULAR ══ */
+      @media (max-width: 520px) {
+        body { padding: 12px 12px 24px; gap: 12px; justify-content: flex-start; }
+
+        .characters-top { gap: 10px; flex-wrap: nowrap; }
+        .character img { width: 46px; height: 46px; }
+
+        .card { padding: 20px 16px; border-radius: 24px; border-width: 2px; }
+        header { margin-bottom: 14px; }
+        h1 { font-size: 1.3rem; }
+
+        .score-bar { gap: 6px; padding: 10px 8px; margin-bottom: 14px; border-radius: 14px; }
+        .score-item { flex: 1; min-width: 0; }
+        .score-number { font-size: 1.35rem; }
+        .score-label { font-size: 0.62rem; letter-spacing: 0; }
+        .score-divider { height: 30px; flex-shrink: 0; }
+
+        .type-filter { gap: 6px; margin-bottom: 14px; }
+        .type-chip { font-size: 0.72rem; padding: 5px 10px; border-width: 1.5px; }
+
+        .exercise-box { padding: 16px 14px; border-radius: 16px; margin-bottom: 14px; }
+        .operation-badge { font-size: 0.68rem; margin-bottom: 10px; }
+        .exercise-text { font-size: clamp(1.6rem, 9vw, 2.2rem); letter-spacing: 1px; }
+        .exercise-text.word-problem { font-size: 1.08rem; line-height: 1.5; }
+
+        .answer-section { gap: 10px; margin-bottom: 12px; }
+        input[type="number"], input[type="text"] { font-size: 1.35rem; padding: 12px 14px; border-radius: 14px; }
+        .btn { padding: 14px 18px; font-size: 1.05rem; border-radius: 14px; }
+
+        .decomposition-inputs { gap: 6px; }
+        .decomposition-inputs .decomposition-input { width: 76px; padding: 10px 4px; font-size: 1.05rem; }
+        .decomposition-plus { font-size: 1.3rem; }
+
+        .feedback-box { padding: 12px 14px; border-radius: 16px; }
+        .feedback-gif { width: 72px; height: 72px; margin-bottom: 4px; }
+        .feedback-message-text { font-size: 0.98rem; }
+
+        .gif-overlay img { width: min(200px, 58vw); height: min(200px, 58vw); border-radius: 20px; border-width: 3px; }
+
+        .countdown-number { font-size: 7rem; }
+
+        .exam-question-label { margin-bottom: 12px; }
+
+        .result-screen { gap: 12px; }
+        .result-grade { font-size: 3.8rem; }
+        .result-title { font-size: 1.15rem; }
+        .result-stat-row { padding: 10px 12px; font-size: 0.88rem; border-radius: 12px; }
+        .operation-feedback-row { gap: 10px; padding: 10px 12px; border-radius: 12px; }
+        .op-feedback-icon { font-size: 1.15rem; }
+        .op-feedback-name { font-size: 0.9rem; }
+        .op-feedback-detail { font-size: 0.74rem; }
+        .op-feedback-bar-track { width: 40px; }
+
+        .result-question-row { flex-direction: column; align-items: stretch; gap: 4px; padding: 10px 12px; font-size: 0.82rem; }
+        .result-question-row span:last-child { align-self: flex-end; font-size: 0.78rem; opacity: 0.85; overflow-wrap: anywhere; }
+        .result-question-expr { font-size: 0.88rem; }
+
+        .btn-exam-mode { width: 100%; max-width: 540px; padding: 14px 20px; border-radius: 16px; }
+      }
     </style>
   </head>
   <body>
 
     <div class="gif-overlay" id="gif-overlay" onclick="closeOverlay()">
       <img id="gif-overlay-img" src="" alt="reação" />
-      <span class="gif-overlay-hint">clique para fechar</span>
+      <span class="gif-overlay-hint">toque para fechar</span>
     </div>
 
     <div class="countdown-overlay" id="countdown-overlay">
@@ -645,7 +710,7 @@
           <div class="score-divider"></div>
           <div class="score-item">
             <span class="score-number" id="score-pct">—</span>
-            <span class="score-label">🌸 Aproveitamento</span>
+            <span class="score-label">🌸 % de acerto</span>
           </div>
         </div>
 
@@ -659,7 +724,7 @@
         </div>
 
         <div class="answer-section">
-          <input type="number" id="answer-input" placeholder="Sua resposta aqui 💕" autocomplete="off" />
+          <input type="number" id="answer-input" inputmode="numeric" pattern="[0-9]*" placeholder="Sua resposta 💕" autocomplete="off" />
           <div class="decomposition-inputs" id="decomposition-inputs"></div>
           <button class="btn btn-confirm" id="btn-confirm" onclick="submitAnswer()">Confirmar 💖</button>
         </div>
@@ -691,7 +756,7 @@
           </div>
 
           <div class="answer-section">
-            <input type="number" id="exam-answer-input" placeholder="Sua resposta aqui 💕" autocomplete="off" />
+            <input type="number" id="exam-answer-input" inputmode="numeric" pattern="[0-9]*" placeholder="Sua resposta 💕" autocomplete="off" />
             <div class="decomposition-inputs" id="exam-decomposition-inputs"></div>
             <button class="btn btn-confirm" id="exam-btn-confirm" onclick="submitExamAnswer()">Confirmar 💖</button>
           </div>
@@ -733,7 +798,6 @@
     <script>
       const GIF_CORRECT      = "static/gifs/acerto.gif";
       const GIF_WRONG        = "static/gifs/errado.gif";
-      const IS_MOBILE        = window.matchMedia("(max-width: 700px), (pointer: coarse)");
       const OVERLAY_DURATION = 2200;
       const EXAM_TOTAL       = 8;
       const LOADING_DURATION = 1800;
@@ -848,11 +912,12 @@
         }
 
         if (exercise.operation_name === "decomposição") {
-          return `${exercise.first_number} &nbsp;=&nbsp; <span class="question-mark">?</span>`;
+          return `<span class="nowrap">${exercise.first_number} =&nbsp;<span class="question-mark">?</span></span>`;
         }
 
-        return `${exercise.first_number} &nbsp;${exercise.symbol}&nbsp; ` +
-          `${exercise.second_number} &nbsp;= &nbsp;<span class="question-mark">?</span>`;
+        return `<span class="nowrap">${exercise.first_number}</span> ` +
+          `<span class="nowrap">${exercise.symbol}&nbsp;${exercise.second_number}</span> ` +
+          `<span class="nowrap">=&nbsp;<span class="question-mark">?</span></span>`;
       }
 
       function setupAnswerInput(input, decompositionBox, exercise) {
@@ -919,6 +984,7 @@
         const operationBadge = document.getElementById("operation-badge");
         operationBadge.textContent = data.exercise.badge_text || data.exercise.operation_name;
         operationBadge.dataset.operationName = data.exercise.operation_name;
+        operationBadge.hidden = Boolean(data.exercise.question_text); // não entrega qual conta fazer
         const exerciseText = document.getElementById("exercise-text");
         exerciseText.classList.toggle("word-problem", Boolean(data.exercise.question_text));
         exerciseText.innerHTML = formatExerciseText(data.exercise);
@@ -1006,7 +1072,6 @@
       }
 
       function showOverlayGif(isCorrect) {
-        if (IS_MOBILE.matches) return;
         const overlay    = document.getElementById("gif-overlay");
         const overlayImg = document.getElementById("gif-overlay-img");
         overlayImg.src   = "";
@@ -1024,6 +1089,7 @@
       /* ══ CONTAGEM ══ */
       function startExamCountdown() {
         document.getElementById("btn-exam-mode").disabled = true;
+        document.getElementById("btn-exam-mode").style.display = "none";
 
         const overlay = document.getElementById("countdown-overlay");
         const number  = document.getElementById("countdown-number");
@@ -1076,6 +1142,7 @@
         const examOperationBadge = document.getElementById("exam-operation-badge");
         examOperationBadge.textContent = data.exercise.badge_text || data.exercise.operation_name;
         examOperationBadge.dataset.operationName = data.exercise.operation_name;
+        examOperationBadge.hidden = Boolean(data.exercise.question_text); // não entrega qual conta fazer
         const examExerciseText = document.getElementById("exam-exercise-text");
         examExerciseText.classList.toggle("word-problem", Boolean(data.exercise.question_text));
         examExerciseText.innerHTML = formatExerciseText(data.exercise);
@@ -1295,6 +1362,7 @@
         document.getElementById("exam-screen").style.display     = "none";
         document.getElementById("practice-screen").style.display = "block";
         document.getElementById("btn-exam-mode").disabled        = false;
+        document.getElementById("btn-exam-mode").style.display   = "";
         loadExercise();
       }
 
