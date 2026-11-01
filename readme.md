@@ -1,7 +1,7 @@
 # 🎀 Estudando Matemática
 
 App web para praticar matemática básica do 6º ano, com visual temático Hello Kitty.
-Desenvolvido com auxílio do *(Claude Sonnet 4.6)*.
+
 
 ---
 
@@ -30,7 +30,7 @@ Desenvolvido com auxílio do *(Claude Sonnet 4.6)*.
 ### Modo Avaliação
 - Contagem regressiva de 3s antes de começar
 - 8 questões seguidas sem distrações, estilo prova
-- Avaliação sempre mistura operações diretas, problemas interpretativos e decomposição
+- Avaliação sempre mistura operações diretas, 1 problema curto, 2 problemas de interpretação e 1 decomposição
 - Tela de loading com barra de aproveitamento animada ao final
 - Resultado completo com:
   - Nota (0–10)
@@ -47,38 +47,52 @@ Desenvolvido com auxílio do *(Claude Sonnet 4.6)*.
 | Divisão | Divisor até 10, dividendo grande, sempre exata |
 | Decomposição | Número de até 5 dígitos em forma expandida, com os sinais de + já na tela |
 | Problemas interpretativos | Enunciados curtos envolvendo soma, subtração, multiplicação e divisão |
+| Problemas de interpretação | Problemas de várias etapas (compras, troco, dividir o que sobrou, dobro/triplo...) com personagens e números sorteados; ~25 modelos em `js/exercises.js` |
 
 ---
 
 ## 🚀 Como usar
 
-**Pré-requisitos:** Python 3.10+ e pip
+O app é 100% estático (HTML + JavaScript), não precisa de servidor nem de instalar nada.
+O placar e os tipos de exercício escolhidos ficam salvos no próprio navegador.
+
+**Online:** https://alissonrp.github.io/sister_studies/
+
+**Localmente:**
 
 ```bash
-pip install flask
-python app.py
+python -m http.server 8000
 ```
 
-Acesse **http://localhost:5000** no navegador.
+Acesse **http://localhost:8000** no navegador.
+
+No celular, abra o link e use **"Adicionar à tela inicial"** para ele virar um ícone de app.
+
+---
+
+## 🌐 Deploy (GitHub Pages)
+
+Todo `git push` na branch `main` publica o site automaticamente pelo workflow
+`.github/workflows/pages.yml`. Na primeira vez, confira em **Settings → Pages** se a
+opção **Source** está como **GitHub Actions**.
+
+A prévia do link no WhatsApp usa a imagem `static/og-image.png` e as tags `og:*` do
+`index.html`. Se mudar o endereço do site, atualize as URLs dessas tags.
 
 ---
 
 ## 📁 Estrutura
 
 ```
-src/
-├── app.py
+├── index.html               # telas, estilos e interação
+├── js/
+│   └── exercises.js         # geração e correção das questões
+├── manifest.webmanifest     # "Adicionar à tela inicial"
+├── favicon.ico
 ├── static/
+│   ├── og-image.png         # prévia do link (WhatsApp etc.)
+│   ├── icons/               # favicon e ícones do app
 │   ├── gifs/
-│   │   ├── acerto.gif
-│   │   └── errado.gif
 │   └── images/
-│       ├── favicon.png
-│       ├── hello_kitty.png
-│       ├── kuromi.png
-│       ├── my_melody.png
-│       ├── Cinnamoroll.png
-│       └── pompompurin.png
-└── templates/
-    └── index.html
+└── .github/workflows/pages.yml
 ```

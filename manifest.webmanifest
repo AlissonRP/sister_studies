@@ -1,0 +1,17 @@
+{
+  "name": "Estudando Matemática",
+  "short_name": "Matemática",
+  "description": "Pratique contas, decomposição e problemas de interpretação. Tem até modo prova!",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff0f8",
+  "theme_color": "#ff69b4",
+  "icons": [
+    { "src": "static/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "static/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "static/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
